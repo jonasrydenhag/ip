@@ -23,7 +23,7 @@ function pushIp(ip) {
 }
 
 function getLastIp() {
-  return new Promise(function (resolve) {
+  return new Promise(function (resolve, reject) {
     ipsRef
       .orderByChild("createDate")
       .limitToLast(1)
@@ -35,6 +35,9 @@ function getLastIp() {
         } else {
           resolve(null);
         }
+      })
+      .catch(function (ex) {
+        reject(ex);
       });
   });
 }
