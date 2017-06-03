@@ -3,8 +3,7 @@
 var firebase = require('firebase-admin');
 var Promise = require('promise');
 
-// Initialize the app with a service account, granting admin privileges
-var serviceAccount = require('./hagarasp-firebase-adminsdk-6bylk-06c217afd2.json');
+var serviceAccount = require('../hagarasp-firebase-adminsdk-6bylk-06c217afd2.json');
 
 firebase.initializeApp({
   credential: firebase.credential.cert(serviceAccount),
@@ -55,21 +54,18 @@ function storeCurrentIp() {
         if (ip !== currentIp || ip === null) {
           storeIp(currentIp)
             .then(function () {
-              console.log('Stored new IP');
-
+              console.log('Stored new IP', currentIp);
               resolve();
             });
+        } else {
+          console.log('Current IP is same as the last stored one', currentIp);
+          resolve();
         }
-      })
-      .catch();
+      });
   });
 }
 
 storeCurrentIp()
   .then(function () {
-    getLastIp()
-      .then(function (ip) {
-        console.log(ip);
-        process.exit();
-      });
+    process.exit();
   });
