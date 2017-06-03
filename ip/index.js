@@ -3,9 +3,13 @@
 var detector = require('./lib/detector');
 var storage = require('./lib/storage');
 
-var currentIp = detector.detect();
+function updateIp () {
+  var currentIp = detector.detect();
 
-storage.store(currentIp)
+  return storage.store(currentIp);
+}
+
+updateIp()
   .then(function () {
     process.exit();
   });
