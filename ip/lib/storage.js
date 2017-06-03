@@ -14,14 +14,11 @@ var db = firebase.database();
 var ipsRef = db.ref("ips");
 
 function pushIp(ip) {
-  return new Promise(function (resolve) {
-    ipsRef.push({
+  return ipsRef
+    .push({
       ip: ip,
       createDate: firebase.database.ServerValue.TIMESTAMP
     });
-
-    resolve();
-  });
 }
 
 function getLastIp() {
