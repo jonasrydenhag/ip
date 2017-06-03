@@ -39,7 +39,7 @@ function getLastIp() {
 }
 
 function storeIp(ip) {
-  return new Promise(function (resolve) {
+  return new Promise(function (resolve, reject) {
     getLastIp()
       .then(function (lastIp) {
         if (lastIp !== ip || lastIp === null) {
@@ -47,11 +47,17 @@ function storeIp(ip) {
             .then(function () {
               console.log('Stored new IP', ip);
               resolve();
+            })
+            .catch(function (ex) {
+              reject(ex);
             });
         } else {
           console.log('Current IP is same as the last stored one', ip);
           resolve();
         }
+      })
+      .catch(function (ex) {
+        reject(ex);
       });
   });
 }
