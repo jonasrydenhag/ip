@@ -4,6 +4,7 @@
   "main": "index.js",
   "dependencies": {
     "firebase-admin": "^4.0.3",
-    "promise": "^7.1.1"
+    "promise": "^7.1.1",
+    "public-ip": "^2.3.5"
   }
 }

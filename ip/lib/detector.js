@@ -1,7 +1,9 @@
 'use strict';
 
+var publicIp = require('public-ip');
+
 function detectIp() {
-  return '10.0.0.0';
+  return publicIp.v4({ "https": true });
 }
 
 module.exports = {
