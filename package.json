@@ -1,0 +1,9 @@
+{
+  "name": "ip-manager",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "firebase-admin": "^4.0.3",
+    "promise": "^7.1.1"
+  }
+}
