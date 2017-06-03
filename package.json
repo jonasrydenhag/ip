@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "dependencies": {
+    "debug": "^2.6.8",
     "firebase-admin": "^5.0.0",
     "promise": "^7.1.1",
     "public-ip": "^2.3.5"

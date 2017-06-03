@@ -1,5 +1,6 @@
 'use strict';
 
+var debug = require('debug')('ip/storage');
 var firebase = require('firebase-admin');
 var Promise = require('promise');
 
@@ -45,14 +46,14 @@ function storeIp(ip) {
         if (lastIp !== ip || lastIp === null) {
           pushIp(ip)
             .then(function () {
-              console.log('Stored new IP', ip);
+              debug('Stored new IP', ip);
               resolve();
             })
             .catch(function (ex) {
               reject(ex);
             });
         } else {
-          console.log('Current IP is same as the last stored one', ip);
+          debug('Current IP is same as the last stored one', ip);
           resolve();
         }
       })

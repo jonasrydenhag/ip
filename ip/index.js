@@ -1,5 +1,6 @@
 'use strict';
 
+var debug = require('debug')('ip');
 var detector = require('./lib/detector');
 var Promise = require('promise');
 var storage = require('./lib/storage');
@@ -27,6 +28,6 @@ updateIp()
     process.exit();
   })
   .catch(function (ex) {
-    console.log(ex);
+    debug(ex);
     process.exit(1);
   });
