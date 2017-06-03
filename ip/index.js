@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 'use strict';
 
 var debug = require('debug')('ip');
@@ -23,11 +25,17 @@ function updateIp () {
   });
 }
 
-updateIp()
-  .then(function () {
-    process.exit();
-  })
-  .catch(function (ex) {
-    debug(ex);
-    process.exit(1);
-  });
+(function(){
+  module.exports.updateIp = updateIp;
+
+  if (module.parent === null) {
+    updateIp()
+      .then(function () {
+        process.exit();
+      })
+      .catch(function (ex) {
+        debug(ex);
+        process.exit(1);
+      });
+  }
+})();
