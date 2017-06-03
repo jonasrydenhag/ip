@@ -3,7 +3,7 @@
 var firebase = require('firebase-admin');
 var Promise = require('promise');
 
-var serviceAccount = require('../hagarasp-firebase-adminsdk-6bylk-06c217afd2.json');
+var serviceAccount = require('../../hagarasp-firebase-adminsdk-6bylk-06c217afd2.json');
 
 firebase.initializeApp({
   credential: firebase.credential.cert(serviceAccount),
@@ -13,7 +13,7 @@ firebase.initializeApp({
 var db = firebase.database();
 var ipsRef = db.ref("ips");
 
-function storeIp(ip) {
+function pushIp(ip) {
   return new Promise(function (resolve) {
     ipsRef.push({
       ip: ip,
@@ -41,31 +41,24 @@ function getLastIp() {
   });
 }
 
-function detectIp() {
-  return '10.0.0.0';
-}
-
-function storeCurrentIp() {
-  var currentIp = detectIp();
-
+function storeIp(ip) {
   return new Promise(function (resolve) {
     getLastIp()
-      .then(function (ip) {
-        if (ip !== currentIp || ip === null) {
-          storeIp(currentIp)
+      .then(function (lastIp) {
+        if (lastIp !== ip || lastIp === null) {
+          pushIp(ip)
             .then(function () {
-              console.log('Stored new IP', currentIp);
+              console.log('Stored new IP', ip);
               resolve();
             });
         } else {
-          console.log('Current IP is same as the last stored one', currentIp);
+          console.log('Current IP is same as the last stored one', ip);
           resolve();
         }
       });
   });
 }
 
-storeCurrentIp()
-  .then(function () {
-    process.exit();
-  });
+module.exports = {
+  store: storeIp
+};
