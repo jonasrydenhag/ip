@@ -12,8 +12,8 @@ function updateIp () {
     detector.detect()
       .then(function (ip) {
         storage.store(ip)
-          .then(function () {
-            resolve();
+          .then(function (updated) {
+            resolve(updated);
           })
           .catch(function (ex) {
             reject(ex);
