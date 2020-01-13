@@ -11,6 +11,8 @@ function updateIp () {
   return new Promise(function (resolve, reject) {
     detector.detect()
       .then(function (ip) {
+        debug("Detected IP: " + ip);
+
         storage.store(ip)
           .then(function (updated) {
             resolve(updated);
@@ -34,6 +36,7 @@ function updateIp () {
         process.exit();
       })
       .catch(function (ex) {
+        console.log(ex);
         debug(ex);
         process.exit(1);
       });
